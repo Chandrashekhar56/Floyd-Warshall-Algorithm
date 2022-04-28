@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+<script>
+	var Infinite = 99999;
+	class floyd_Warshall_shortestPath 
+	{
+		constructor() 
+		{
+			this.totalVertices = 4;
+		}
+		function_of_floyd_Warshall(graph) 
+		{
+			var distance = Array.from(Array(this.totalVertices), () => new Array(this.totalVertices).fill(0));
+			var x, y, z;
+			for (x = 0; x < this.totalVertices; x++) 
+			{
+				for (y = 0; y < this.totalVertices; y++) 
+				{
+					distance [x][y] = graph[x][y];
+				}
+			}
+
+			for (z = 0; z < this.totalVertices; z++) 
+			{
+
+				for (x = 0; x < this.totalVertices; x++) 
+				{
+					for (y = 0; y < this.totalVertices; y++) 
+					{
+						if (distance [x][z] + distance [z][y] < distance [x][y]) 
+						{
+							distance [x][y] = distance [x][z] + distance [z][y];
+						}
+					}
+				}
+			}
+			this.result(distance);
+		}
+		result(distance) 
+		{
+			document.write("distance between all vertices<br>");
+			for (var x= 0; x< this.totalVertices; ++x) 
+			{
+				for (var y = 0; y < this.totalVertices; ++y) 
+				{
+					if (distance [x][y] == Infinite) 
+					{
+						document.write(" INF ");
+					}
+					else 
+					{
+						document.write("  " + distance[x][y] + " ");
+				}
+			}
+
+			document.write("<br>");
+		}
+	}
+}
+	var graph_for_floyd_Warshall = [
+		[0, 4, Infinite, 8],
+		[Infinite, 0, 2, Infinite],
+		[Infinite, Infinite, 0, 1],
+		[Infinite, Infinite, Infinite, 0],
+	];
+
+	var ob= new floyd_Warshall_shortestPath();
+	ob.function_of_floyd_Warshall(graph_for_floyd_Warshall);
+	</script>
+</body>
+</html>
